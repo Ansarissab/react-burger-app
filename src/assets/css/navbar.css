@@ -1,0 +1,17 @@
+.nav-bar {
+  background-color: #703b09;
+  /* background: linear-gradient(#bc581e, #e27b36);  */
+  margin-bottom: 30px;
+}
+.nav-bar a {
+  color: white;
+  padding: 5px;
+}
+.navbar-logo {
+  background: white;
+  border-radius: 10%;
+  padding: 7px;
+}
+.navbar-logo img {
+  width: 50px;
+}

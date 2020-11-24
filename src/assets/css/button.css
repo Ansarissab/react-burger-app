@@ -1,0 +1,24 @@
+.addIngredientBtn {
+  text-align: center;
+  margin: 10px;
+}
+.Btn {
+  padding: 5px;
+  margin: 0 5px;
+  width: 80px;
+  border: 1px solid #aa6817;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+.addBtn {
+  background: #daa972;
+}
+.removeBtn {
+  background: #99703f;
+}
+
+.removeBtn:disabled {
+  background: #ac9980;
+  cursor: not-allowed;
+}
