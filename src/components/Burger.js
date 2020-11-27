@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Checkout from './Checkout'
 import Button from './Button'
 import '../assets/css/burger.css'
+import Ingredient from './Ingredient'
 
 export default class Burger extends Component {
   state = {
@@ -11,9 +12,11 @@ export default class Burger extends Component {
     meat: 0,
     price: 3,
     haveIngredient: false,
-    showModal: false
+    showModal: false,
+    burger: []
   }
   data = {}
+
   addRemoveIngredients = (action, ingredient, amount) => {
     let { lettuce, bacon, cheese, meat, price } = this.state
     let stateValue
@@ -45,6 +48,7 @@ export default class Burger extends Component {
         price,
         haveIngredient: true
       })
+      this.state.burger.push(ingredient)
     } else if (action === 'remove') {
       stateValue = stateValue - 1
       price = price - amount
@@ -52,36 +56,17 @@ export default class Burger extends Component {
         price: price >= 0 ? price : 0,
         haveIngredient: price <= 3 ? false : true
       })
+      let instant_burger = this.state.burger
+      const index = instant_burger.indexOf(ingredient)
+      if (index > -1) {
+        instant_burger.splice(index, 1)
+        this.setState([...this.state.burger])
+      }
     }
 
     this.setState({
       [ingredient]: stateValue >= 0 ? stateValue : 0
     })
-  }
-
-  burgerIngredients = () => {
-    let { lettuce, bacon, cheese, meat } = this.state
-    let burger = []
-
-    for (let i = 0; i < lettuce; i++) {
-      burger.push(<div key={burger.length} className="lettuce"></div>)
-    }
-    for (let i = 0; i < bacon; i++) {
-      burger.push(<div key={burger.length} className="bacon"></div>)
-    }
-    for (let i = 0; i < cheese; i++) {
-      burger.push(<div key={burger.length} className="cheese"></div>)
-    }
-    for (let i = 0; i < meat; i++) {
-      burger.push(<div key={burger.length} className="meat"></div>)
-    }
-    if (burger.length === 0)
-      burger.push(
-        <h4 key="0" className="align-center">
-          Start adding ingredients!
-        </h4>
-      )
-    return burger
   }
   setShowModal = (value) => this.setState({ showModal: value })
   loadCheckoutModal = () => {
@@ -95,7 +80,6 @@ export default class Burger extends Component {
     }
   }
   clearState = () => {
-    console.log('here')
     this.setState({
       lettuce: 0,
       bacon: 0,
@@ -103,7 +87,8 @@ export default class Burger extends Component {
       meat: 0,
       price: 3,
       haveIngredient: false,
-      showModal: false
+      showModal: false,
+      burger: []
     })
   }
 
@@ -113,7 +98,7 @@ export default class Burger extends Component {
       <div>
         <div className="burgerIngredients">
           <div className="burger-top"></div>
-          {this.burgerIngredients()}
+          <Ingredient burger={this.state.burger} />
           <div className="burger-bottom"></div>
         </div>
         <div className="ingredientsBtnBlock">
